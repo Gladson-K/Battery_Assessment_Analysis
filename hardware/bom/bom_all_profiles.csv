@@ -1,0 +1,110 @@
+Profile,Ref,Qty,Part,Package,Rating,Notes
+ALL,U1,1,STM32F411CEU6 Black Pill,Dev board,100 MHz 3.3 V,Main controller
+ALL,U2,1,AMS1117-3.3,SOT-223,3.3 V 1 A,3.3 V LDO
+ALL,U3,1,USBLC6-2SC6,SOT-23-6,5 V,USB and UART ESD protection
+ALL,F1,1,PTC resettable fuse,1206,1.1 A hold,5 V rail
+ALL,F2,1,Blade fuse holder,ATO,Per profile,Battery positive
+ALL,D1,1,SMBJ15A,SMB,15 V,5 V rail TVS
+ALL,Q1,1,P-MOSFET reverse polarity,DPAK,60 V 30 A,Battery input protection
+ALL,Q2,1,2N7002,SOT-23,60 V,Relay and buzzer driver
+ALL,Q3,1,AO3400,SOT-23,30 V 5 A,Fan and LED driver
+ALL,K1,1,Relay or contactor,Per profile,Per profile,Load disconnect
+ALL,D2,1,1N4148W,SOD-123,100 V,Relay flyback
+ALL,SW1,1,Reset tact switch,6 mm,12 V,Local reset
+ALL,SW2,1,E-stop NC switch,22 mm,Per profile,Safety input
+ALL,Y1,1,Active buzzer,12 mm,5 V,Audible alert
+ALL,LED1,1,Status LED,0805,3.3 V,Heartbeat and alarm
+ALL,J1,1,2-pin terminal,5.08 mm,Per profile,Battery input
+ALL,J2,1,2-pin terminal,5.08 mm,Per profile,Load output
+ALL,J3,1,4-pin JST-XH,2.5 mm,3.3 V,I2C bus
+ALL,J5,1,2-pin JST-XH,2.5 mm,3.3 V,E-stop loop
+ALL,J6,1,4-pin JST-XH,2.5 mm,3.3 V,UART gateway
+ALL,J7,1,2-pin JST-XH,2.5 mm,5 V or 12 V,Fan
+ALL,J8,1,2-pin JST-XH,2.5 mm,5 V,Buzzer
+ALL,J9,1,4-pin SWD header,2.54 mm,3.3 V,Programming
+ALL,J10,1,USB-C receptacle,16-pin,5 V,Service power and debug
+ALL,R1,1,100k resistor,0805,1%,Voltage divider top
+ALL,R2,1,10k resistor,0805,1%,Voltage divider bottom
+ALL,R3,4,10k resistor,0805,1%,Pull-ups and NTC networks
+ALL,R4,1,1k resistor,0805,1%,LED current limit
+ALL,C1,1,10 uF capacitor,0805,16 V,5 V bulk
+ALL,C2,1,10 uF capacitor,0805,16 V,3.3 V bulk
+ALL,C3,10,100 nF capacitor,0402,16 V,Decoupling
+C1,U11,8,LM35DZ,TO-92,0-100 C,Cell temperature
+C1,U12,1,74HC4067,MUX16,2-6 V,8-to-1 analog mux
+C1,U13,1,ACS712-05B,SOIC-8,5 A,Current sensor
+C1,U14,1,PCF8574 I2C LCD backpack,Module,3.3-5 V,16x2 display
+C1,U15,1,Rain sensor FC-37,Module,3.3-5 V,Moisture detection
+C1,R10,8,100 ohm resistor,0805,1%,LM35 output series
+C1,R11,2,4.7k resistor,0805,1%,I2C pull-ups
+C1,R12,2,20k resistor,0805,1%,ACS712 divider
+C1,R13,1,1k resistor,0805,1%,Rain digital pull-up
+C1,D10,8,1N4148W,SOD-123,100 V,LM35 clamp
+C2,U20,8,MAX31865,SSOP-20,3.3 V,PT100 front end
+C2,U21,8,PT100 3-wire probe,Probe,-50 to 250 C,Cell temperature
+C2,U22,1,74HC138,SOIC-16,3.3 V,MAX31865 CS decoder
+C2,U23,2,TMP117,DSBGA-6,3.3 V,Ambient and busbar
+C2,U24,1,INA226,MSOP-10,3.3 V,48 V bus monitor
+C2,U25,1,ISO1540,SOIC-8,3.3 V,Isolated I2C
+C2,U26,1,Isolated DC-DC 48 V to 5 V,Module,48 V 10 W,Logic supply
+C2,U27,1,TCAN330,SOIC-8,3.3 V,CAN transceiver V1.1
+C2,R20,1,0.5 mOhm shunt,2512,1% 5 W,200 A current shunt
+C2,R21,8,430 ohm resistor,0805,0.1%,MAX31865 RREF
+C2,R22,1,100 ohm precharge resistor,Chassis,50 W,Precharge limit
+C2,K20,1,EV contactor,Chassis,48 V 200 A,Main disconnect
+C2,F20,1,Class T fuse,Chassis,200 A,Battery protection
+C2,F21,1,Contactor coil fuse,ATO,5 A,Coil protection
+C2,D20,1,SMBJ58A,SMB,58 V,48 V bus TVS
+C2,D21,1,1N5819,SOD-123,40 V,Coil flyback
+C2,J20,1,HV connector,Amass XT90,48 V,Battery input
+C2,J21,1,HV connector,Amass XT90,48 V,Load output
+C2,J22,1,HVIL loop connector,4-pin,12 V,Interlock
+C2,C20,4,1 uF capacitor,0805,100 V,Isolation and filtering
+C3,U30,4,TMP117,DSBGA-6,3.3 V,Cell temperature
+C3,U31,1,MLX90614,TO-39,3.3 V,Infrared hotspot
+C3,U32,1,SHT31-DIS,DFN-8,3.3 V,Ambient temperature and humidity
+C3,U33,1,INA226,MSOP-10,3.3 V,24 V bus monitor
+C3,U34,1,24 V DIN PSU,Module,24 V 60 W,Powered from mains or DC bus
+C3,U35,1,Isolated 24 V to 5 V DC-DC,Module,24 V 5 W,Logic supply
+C3,R30,1,1 mOhm shunt,2512,1% 3 W,50 A current shunt
+C3,K30,1,30 A relay,PCB,24 V 30 A,UPS output
+C3,F30,1,30 A fuse,ATO,30 A,Output protection
+C3,F31,1,1 A fuse,ATO,1 A,Logic protection
+C3,D30,1,SMBJ33A,SMB,33 V,24 V bus TVS
+C3,J30,1,DIN rail terminal,5.08 mm,24 V,DC input
+C3,J31,1,DIN rail terminal,5.08 mm,24 V,Load output
+C3,U36,1,ISO3082,SOIC-16,3.3 V,Isolated RS485 transceiver
+C3,J32,1,RJ45 or RS485,8P8C,3.3 V,Isolated gateway
+C3,M30,1,5 V fan,40 mm,5 V,Forced airflow
+C4,U40,4,NTC 10k B3950,Probe,-40 to 125 C,Battery and cabinet
+C4,U41,1,SHT31-DIS,DFN-8,3.3 V,Ambient temperature and humidity
+C4,U42,1,INA226,MSOP-10,3.3 V,12 V bus monitor
+C4,U43,1,Isolated 12 V to 5 V DC-DC,Module,12 V 5 W,Logic supply
+C4,U44,1,Rain sensor FC-37,Module,3.3-5 V,Moisture detection
+C4,R40,1,1 mOhm shunt,2512,1% 3 W,50 A current shunt
+C4,R41,4,10k resistor,0805,1%,NTC series
+C4,R42,1,100 ohm resistor,0805,1%,Rain analog series
+C4,K40,1,20 A relay,PCB,12 V 20 A,Load disconnect
+C4,F40,1,20 A fuse,ATO,20 A,Battery protection
+C4,F41,1,1 A fuse,ATO,1 A,Logic protection
+C4,MOV1,1,S14K14,MOV,14 mm,Surge protection
+C4,D40,1,SMBJ18A,SMB,18 V,12 V bus TVS
+C4,D41,1,1N5819,SOD-123,40 V,Relay flyback
+C4,J40,1,PG7 cable gland,PG7,IP68,Battery entry
+C4,U45,1,ISO3082,SOIC-16,3.3 V,Isolated RS485 transceiver
+C4,J41,1,PG7 cable gland,PG7,IP68,Load entry
+C4,ENC1,1,IP65 enclosure,ABS,200x120x75 mm,Outdoor cabinet
+C5,U50,2,TMP117,DSBGA-6,3.3 V,Battery and evaporator
+C5,U51,1,SHT31-DIS,DFN-8,3.3 V,Door and ambient
+C5,U52,1,ACS712-20A,SOIC-8,20 A,Current sensor
+C5,U53,1,Isolated 12 V to 5 V DC-DC,Module,12 V 5 W,Logic supply
+C5,U54,1,PCF8574 I2C LCD backpack,Module,3.3-5 V,16x2 display
+C5,R50,2,20k resistor,0805,1%,ACS712 divider
+C5,R51,2,4.7k resistor,0805,1%,I2C pull-ups
+C5,K50,1,20 A relay,PCB,12 V 20 A,Compressor or load disconnect
+C5,F50,1,20 A fuse,ATO,20 A,Battery protection
+C5,F51,1,1 A fuse,ATO,1 A,Logic protection
+C5,D50,1,SMBJ18A,SMB,18 V,12 V bus TVS
+C5,D51,1,1N5819,SOD-123,40 V,Relay flyback
+C5,M50,1,5 V fan,40 mm,5 V,Air circulation
+C5,J50,1,IP54 enclosure,ABS,250x180x100 mm,Insulated cold chain box

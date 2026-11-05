@@ -1,0 +1,37 @@
+MCU pin,Port,Signal,Direction,Profiles,Connector,Notes
+PC13,GPIOC,Status LED,Output,ALL,LED1,Active low on Black Pill
+PC14,GPIOC,Reset button input,Input,ALL,SW1,Active low with pull-up
+PA0,GPIOA,ADC MUX output / analog input,Input,C1,J3,ADC channel 0
+PA1,GPIOA,ADC battery voltage,Input,C1/C4/C5,J1,ADC channel 1 after 1:11 divider
+PA2,GPIOA,UART2 TX,Output,ALL,J6,Gateway telemetry
+PA3,GPIOA,UART2 RX,Input,ALL,J6,Gateway command
+PA4,GPIOA,ADC current,Input,C1/C5,J2,ADC channel 4 after ACS712 divider
+PA5,GPIOA,ADC rain analog,Input,C1/C4,J3,ADC channel 5
+PA6,GPIOA,ADC NTC 0,Input,C4,J3,ADC channel 6
+PA7,GPIOA,ADC NTC 1,Input,C4,J3,ADC channel 7
+PB0,GPIOB,ADC NTC 2 / decoder S0,Input or Output,C4/C2,J3/J4,Profile conditional
+PB1,GPIOB,ADC NTC 3 / decoder S1,Input or Output,C4/C2,J3/J4,Profile conditional
+PB2,GPIOB,74HC4067 S0 / decoder S2,Output,C1/C2,J4,Profile conditional
+PB3,GPIOB,74HC4067 S1 / decoder S3,Output,C1/C2,J4,Profile conditional
+PB4,GPIOB,74HC4067 S2,Output,C1,J4,Profile C1 only
+PB5,GPIOB,74HC4067 S3,Output,C1,J4,Profile C1 only
+PB6,GPIOB,Rain digital,Input,C1/C4,J3,Active low on FC-37 module
+PB7,GPIOB,Relay or contactor drive,Output,ALL,K1,Active high; add driver transistor
+PB8,GPIOB,I2C1 SCL,Bidirectional,ALL,J3,4.7 kOhm pull-up to 3.3 V
+PB9,GPIOB,I2C1 SDA,Bidirectional,ALL,J3,4.7 kOhm pull-up to 3.3 V
+PB10,GPIOB,Buzzer drive,Output,ALL,J8,Active high; NPN or MOSFET driver
+PB11,GPIOB,Fan drive,Output,C2/C3/C4/C5,J7,Active high; MOSFET driver
+PB12,GPIOB,SPI2 CS,Output,C2,J4,MAX31865 latch
+PB13,GPIOB,SPI2 SCK,Output,C2,J4,1 MHz or lower
+PB14,GPIOB,SPI2 MISO,Input,C2,J4,PT100 data
+PB15,GPIOB,SPI2 MOSI,Output,C2,J4,PT100 command
+PA8,GPIOA,E-stop input,Input,ALL,J5,Active low; NC switch to GND
+PA9,GPIOA,USART1 TX debug,Output,ALL,J9/J10,115200 baud
+PA10,GPIOA,USART1 RX debug,Input,ALL,J9/J10,115200 baud
+PA11,GPIOA,USB DM,Bidirectional,ALL,J10,Service USB
+PA12,GPIOA,USB DP,Bidirectional,ALL,J10,Service USB
+PA13,GPIOA,SWDIO,Bidirectional,ALL,J9,Programming
+PA14,GPIOA,SWCLK,Input,ALL,J9,Programming
+3V3,Power,3.3 V rail,Power,ALL,J3/J9,100 mA budget
+5V,Power,5 V rail,Power,ALL,J3/J7/J8,From DC-DC or USB
+GND,Power,Ground,Power,ALL,ALL,Star ground at battery negative
