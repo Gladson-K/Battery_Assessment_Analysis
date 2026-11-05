@@ -1,0 +1,67 @@
+profiles:
+  bench_6v:
+    circuit: C1
+    description: Bench battery monitor compatible with the legacy 6 V dataset.
+    chemistry: lead-acid
+    nominal_voltage_v: 6.0
+    temperature_sensors: 8
+    sensor_types: [lm35, lm35, lm35, lm35, lm35, lm35, lm35, lm35]
+    ml_enabled: true
+    ml_domain: [5.0, 8.5, -2.0, 1.5]
+    temperature: {warn_c: 60, crit_c: 75, trip_c: 85, low_warn_c: -10, low_crit_c: -20}
+    voltage: {warn_high_v: 6.9, crit_high_v: 7.4, warn_low_v: 5.6, crit_low_v: 5.3}
+    current: {warn_a: 0.9, crit_a: 1.5, abs_max_a: 2.0}
+
+  ev_pack:
+    circuit: C2
+    description: EV/AGV pack with PT100 array, INA226 and isolated contactor.
+    chemistry: lfp
+    nominal_voltage_v: 48
+    temperature_sensors: 10
+    sensor_types: [pt100, pt100, pt100, pt100, pt100, pt100, pt100, pt100, tmp117, tmp117]
+    ml_enabled: false
+    temperature: {warn_c: 55, crit_c: 65, trip_c: 75, low_warn_c: -10, low_crit_c: -20}
+    voltage: {warn_high_v: 55.0, crit_high_v: 58.0, warn_low_v: 42.0, crit_low_v: 38.0}
+    current: {warn_a: 50, crit_a: 100, abs_max_a: 150}
+    comms: [isolated_can, rs485]
+
+  server_ups:
+    circuit: C3
+    description: Server-room battery string with IR hotspot and Ethernet telemetry.
+    chemistry: lead-acid
+    nominal_voltage_v: 24
+    temperature_sensors: 6
+    sensor_types: [tmp117, tmp117, tmp117, tmp117, mlx90614, mlx90614]
+    ml_enabled: false
+    temperature: {warn_c: 50, crit_c: 60, trip_c: 70, low_warn_c: -10, low_crit_c: -20}
+    voltage: {warn_high_v: 28.0, crit_high_v: 29.2, warn_low_v: 22.0, crit_low_v: 20.0}
+    current: {warn_a: 30, crit_a: 60, abs_max_a: 100}
+    comms: [ethernet]
+
+  solar_cabinet:
+    circuit: C4
+    description: Outdoor solar cabinet with humidity, rain, fan and surge protection.
+    chemistry: lfp
+    nominal_voltage_v: 24
+    temperature_sensors: 4
+    sensor_types: [ntc, ntc, ntc, ntc]
+    ml_enabled: false
+    temperature: {warn_c: 50, crit_c: 60, trip_c: 70, low_warn_c: -15, low_crit_c: -25}
+    voltage: {warn_high_v: 28.0, crit_high_v: 29.2, warn_low_v: 22.0, crit_low_v: 20.0}
+    current: {warn_a: 30, crit_a: 60, abs_max_a: 100}
+    humidity: {warn_pct: 80, crit_pct: 92}
+    comms: [rs485, lora]
+
+  cold_chain:
+    circuit: C5
+    description: Vaccine carrier with TMP117, tamper detection and excursion logging.
+    chemistry: li-ion
+    nominal_voltage_v: 3.7
+    temperature_sensors: 2
+    sensor_types: [tmp117, tmp117]
+    ml_enabled: false
+    temperature: {warn_c: 8, crit_c: 10, trip_c: 12, low_warn_c: 2, low_crit_c: 0}
+    voltage: {warn_high_v: 4.2, crit_high_v: 4.3, warn_low_v: 3.3, crit_low_v: 3.0}
+    current: {warn_a: 1.0, crit_a: 2.0, abs_max_a: 3.0}
+    humidity: {warn_pct: 70, crit_pct: 85}
+    comms: [ble, uart]
