@@ -124,7 +124,7 @@ bool sm_init(sm_t *manager, const sm_config_t *config, uint32_t now_ms)
     manager->max31865.cs_pin = BOARD_SPI_CS_PIN;
     manager->max31865.reference_resistance = BOARD_MAX31865_RREF;
     manager->max31865.nominal_resistance = BOARD_MAX31865_RNOMINAL;
-    manager->max31865.three_wire = 0;
+    manager->max31865.three_wire = 1;
 
     manager->max31865_ok = 1;
     for (uint8_t i = 0; i < config->temp_count; ++i) {

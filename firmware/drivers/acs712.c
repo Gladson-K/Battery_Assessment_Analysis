@@ -48,7 +48,11 @@ sensor_value_t acs712_read(const acs712_t *sensor)
         return sensor_value_make(0.0f, SENSOR_STATUS_RAIL);
     }
     float volts = (float)raw * BOARD_ADC_VREF / BOARD_ADC_MAX;
-    float current = (volts - sensor->zero_volts) / sensor->sensitivity_v_per_a;
+    float effective_sensitivity = sensor->sensitivity_v_per_a * sensor->divider_ratio;
+    if (effective_sensitivity <= 0.0f) {
+        return sensor_value_make(0.0f, SENSOR_STATUS_OUT_OF_RANGE);
+    }
+    float current = (volts - sensor->zero_volts) / effective_sensitivity;
     if (current < -30.0f || current > 30.0f) {
         return sensor_value_make(current, SENSOR_STATUS_OUT_OF_RANGE);
     }
