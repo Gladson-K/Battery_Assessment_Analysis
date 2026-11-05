@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# PlatformIO / embedded builds
+.pio/
+.pioenvs/
+.piolibdeps/
+.vscode/
+*.o
+*.obj
+*.elf
+*.hex
+*.bin
+*.map
+
+# CMake / host builds
+build/
+out/
+
+# KiCad generated exports
+hardware/kicad/*/gerbers/
+hardware/kicad/*/output/
+*.kicad_prl
+*.kicad_pcb-bak
+*-backups/
+
+# NAS runtime state
+nas/data/
+nas/backups/
+nas/gateway/buffer.db
+nas/gateway/*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Local secrets
+.env
+*.pem
+*.key
+secrets/
