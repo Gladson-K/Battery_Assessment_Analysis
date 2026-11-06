@@ -36,7 +36,7 @@ E-stop/HVIL -> PA8, fan -> PB11, buzzer -> PB10, contactor -> PB7
 | TMP117 SDA/SCL | Isolated I2C | 0x48 and 0x49 |
 | INA226 SDA/SCL | Isolated I2C | 0x40, A0/A1 low |
 | INA226 IN+ / IN- | Across R20 0.5 mOhm | Kelvin connections |
-| INA226 VBUS | Pack + after fuse | <=36 V common mode |
+| INA226 VBUS | Do not connect to 48 V | INA226 is limited to 36 V; use INA228/INA229 or an isolated current-sense amplifier plus a 1:11 pack-voltage divider |
 | Contactor coil | PB7 -> gate driver -> 12 V | Flyback diode |
 | HVIL loop | J22 -> PA8 | Normally closed |
 | E-stop | J5 -> PA8 | Normally closed |
@@ -70,6 +70,11 @@ E-stop/HVIL -> PA8, fan -> PB11, buzzer -> PB10, contactor -> PB7
 
 ## Safety Case
 
+- **HV measurement gap:** the INA226 bus-voltage and current-input common-mode
+  limit is 36 V. The 48 V pack must not connect directly to INA226. Replace it
+  with an INA228/INA229 (85 V) or an isolated current-sense amplifier and measure
+  pack voltage through the 1:11 divider. Firmware V1 supports INA226 only, so C2
+  is an engineering reference and is **not fabrication-ready**.
 - No ML inference is enabled on this profile; all decisions are deterministic
   threshold and rate-of-change rules.
 - The firmware de-energizes the contactor on any critical fault and on watchdog

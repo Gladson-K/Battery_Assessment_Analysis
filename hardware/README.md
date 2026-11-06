@@ -26,7 +26,7 @@ schematic hierarchy and footprint rules for layout capture.
 | ID | Profile | Battery | Temp front end | Current/voltage | Environment | Output |
 | --- | --- | --- | --- | --- | --- | --- |
 | C1 | Bench 6 V | 6 V SLA/LFP | 8x LM35 via 74HC4067 | 1:11 divider + ACS712-05B | Bench | Relay, buzzer, LED, LCD |
-| C2 | EV pack 48 V | 48 V LFP | 8x PT100 via MAX31865 + 2x TMP117 | INA226, 0.5 mOhm shunt | IP67, HV | Contactor, precharge, buzzer |
+| C2 | EV pack 48 V | 48 V LFP | 8x PT100 via MAX31865 + 2x TMP117 | INA226 (HV redesign required) / INA228, 0.5 mOhm shunt | IP67, HV | Contactor, precharge, buzzer |
 | C3 | Server UPS 24 V | 24 V LFP | 4x TMP117 + MLX90614 + SHT31 | INA226, 1 mOhm shunt | 1U/DIN | Relay, fan, LCD |
 | C4 | Solar cabinet 12 V | 12 V lead/LFP | 4x NTC 10k B3950 | INA226, 1 mOhm shunt | IP65 outdoor | Relay, fan, LCD |
 | C5 | Cold chain 12 V | 12 V LFP | 2x TMP117 + SHT31 | 1:11 divider + ACS712-20A | IP54 insulated | Relay, fan, LCD |
