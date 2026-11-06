@@ -149,17 +149,17 @@ bool ba_config_from_profile(ba_config_t *config, bat_profile_t profile, uint8_t 
         config->temp_spread_crit_c = 5.0f;
         config->temp_rate_warn_c_s = 0.20f;
         config->temp_rate_crit_c_s = 0.80f;
-        config->volt_warn_high_v = 4.20f;
-        config->volt_crit_high_v = 4.30f;
-        config->volt_warn_low_v = 3.30f;
-        config->volt_crit_low_v = 3.00f;
-        config->volt_abs_max_v = 4.50f;
-        config->volt_reverse_v = -0.30f;
-        config->current_warn_a = 1.0f;
-        config->current_crit_a = 2.0f;
-        config->current_abs_max_a = 3.0f;
-        config->resistance_warn_ohm = 0.50f;
-        config->resistance_crit_ohm = 1.00f;
+        config->volt_warn_high_v = 14.40f;
+        config->volt_crit_high_v = 14.80f;
+        config->volt_warn_low_v = 11.80f;
+        config->volt_crit_low_v = 10.80f;
+        config->volt_abs_max_v = 15.50f;
+        config->volt_reverse_v = -1.00f;
+        config->current_warn_a = 8.0f;
+        config->current_crit_a = 15.0f;
+        config->current_abs_max_a = 20.0f;
+        config->resistance_warn_ohm = 0.20f;
+        config->resistance_crit_ohm = 0.50f;
         config->ml_enabled = 0u;
         return true;
     case BAT_PROFILE_CUSTOM:

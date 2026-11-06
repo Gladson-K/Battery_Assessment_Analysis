@@ -140,6 +140,28 @@ static void test_feature_builder(void)
     CHECK(features.rain_wet == 0u);
 }
 
+static void test_profiles(void)
+{
+    ba_config_t config;
+    const bat_profile_t profiles[] = {
+        BAT_PROFILE_BENCH_6V, BAT_PROFILE_LEAD_12V, BAT_PROFILE_LFP_24V,
+        BAT_PROFILE_LFP_48V, BAT_PROFILE_COLD_CHAIN, BAT_PROFILE_CUSTOM,
+    };
+    const char *names[] = {"bench-6v", "lead-12v", "lfp-24v", "lfp-48v", "cold-chain",
+                           "custom"};
+    for (size_t i = 0; i < sizeof(profiles) / sizeof(profiles[0]); i++) {
+        CHECK(ba_config_from_profile(&config, profiles[i], 4));
+        CHECK(ba_validate_config(&config));
+        CHECK(strcmp(ba_profile_name(profiles[i]), names[i]) == 0);
+    }
+
+    CHECK(ba_config_from_profile(&config, BAT_PROFILE_COLD_CHAIN, 2));
+    CHECK_NEAR(config.volt_warn_low_v, 11.80f, 0.001f);
+    CHECK_NEAR(config.volt_crit_low_v, 10.80f, 0.001f);
+    CHECK_NEAR(config.volt_warn_high_v, 14.40f, 0.001f);
+    CHECK_NEAR(config.current_abs_max_a, 20.0f, 0.001f);
+}
+
 static void test_assessment_normal(void)
 {
     ba_config_t config;
@@ -444,6 +466,7 @@ static void test_telemetry(void)
 int main(void)
 {
     test_filters();
+    test_profiles();
     test_feature_builder();
     test_assessment_normal();
     test_assessment_temp_trip_and_reset();
