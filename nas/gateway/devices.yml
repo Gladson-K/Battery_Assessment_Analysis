@@ -1,0 +1,23 @@
+mqtt:
+  host: mosquitto
+  port: 1883
+  username: ""
+  password: ""
+  base_topic: battery
+
+devices:
+  - id: bench-01
+    port: /dev/ttyUSB0
+    baud: 115200
+    profile: bench_6v
+    location: Lab bench
+    heartbeat_interval_s: 5
+    enabled: true
+  # Example: uncomment and map another USB adapter for a second controller.
+  # - id: solar-01
+  #   port: /dev/ttyUSB1
+  #   baud: 115200
+  #   profile: solar_cabinet_12v
+  #   location: Roof cabinet A
+  #   heartbeat_interval_s: 5
+  #   enabled: true

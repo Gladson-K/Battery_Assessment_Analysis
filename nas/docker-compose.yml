@@ -1,0 +1,166 @@
+version: "3.8"
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0.20
+    container_name: battery-mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_sub -h 127.0.0.1 -t '$$SYS/broker/uptime' -C 1 -W 3 >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks: [battery-net]
+
+  influxdb:
+    image: influxdb:2.7.11
+    container_name: battery-influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUX_USERNAME:-battery}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUX_PASSWORD:-change-me-influx-password}
+      DOCKER_INFLUXDB_INIT_ORG: ${INFLUX_ORG:-battery}
+      DOCKER_INFLUXDB_INIT_BUCKET: ${INFLUX_BUCKET:-battery}
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${INFLUX_TOKEN:-battery-dev-token}
+      DOCKER_INFLUXDB_INIT_RETENTION: 90d
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+      - influxdb-config:/etc/influxdb2
+    healthcheck:
+      test: ["CMD", "influx", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks: [battery-net]
+
+  grafana:
+    image: grafana/grafana:11.1.5
+    container_name: battery-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-change-me-grafana-password}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      INFLUX_TOKEN: ${INFLUX_TOKEN:-battery-dev-token}
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - influxdb
+    networks: [battery-net]
+
+  ingest:
+    build:
+      context: ./gateway
+    container_name: battery-ingest
+    restart: unless-stopped
+    command: ["python", "ingest.py"]
+    environment:
+      MQTT_HOST: mosquitto
+      MQTT_PORT: "1883"
+      MQTT_USERNAME: ${MQTT_USERNAME:-}
+      MQTT_PASSWORD: ${MQTT_PASSWORD:-}
+      INFLUX_URL: http://influxdb:8086
+      INFLUX_TOKEN: ${INFLUX_TOKEN:-battery-dev-token}
+      INFLUX_ORG: ${INFLUX_ORG:-battery}
+      INFLUX_BUCKET: ${INFLUX_BUCKET:-battery}
+      BUFFER_DB: /data/buffer.db
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - ./data/gateway:/data
+    depends_on:
+      - mosquitto
+      - influxdb
+    networks: [battery-net]
+
+  api:
+    build:
+      context: ./gateway
+    container_name: battery-api
+    restart: unless-stopped
+    command: ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8088"]
+    ports:
+      - "8088:8088"
+    environment:
+      MQTT_HOST: mosquitto
+      MQTT_PORT: "1883"
+      MQTT_USERNAME: ${MQTT_USERNAME:-}
+      MQTT_PASSWORD: ${MQTT_PASSWORD:-}
+      INFLUX_URL: http://influxdb:8086
+      INFLUX_TOKEN: ${INFLUX_TOKEN:-battery-dev-token}
+      INFLUX_ORG: ${INFLUX_ORG:-battery}
+      INFLUX_BUCKET: ${INFLUX_BUCKET:-battery}
+      API_KEY: ${API_KEY:-}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    depends_on:
+      - mosquitto
+      - influxdb
+    networks: [battery-net]
+
+  serial-gateway:
+    build:
+      context: ./gateway
+    container_name: battery-serial-gateway
+    restart: unless-stopped
+    command: ["python", "serial_gateway.py"]
+    environment:
+      DEVICES_CONFIG: /app/devices.yml
+      MQTT_HOST: mosquitto
+      MQTT_PORT: "1883"
+      MQTT_USERNAME: ${MQTT_USERNAME:-}
+      MQTT_PASSWORD: ${MQTT_PASSWORD:-}
+      SERIAL_PORT: ${SERIAL_DEVICE:-/dev/ttyUSB0}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - ./gateway/devices.yml:/app/devices.yml:ro
+      - /dev:/dev
+    group_add:
+      - "${DIALOUT_GID:-20}"
+    depends_on:
+      - mosquitto
+    networks: [battery-net]
+
+  simulator:
+    build:
+      context: ./gateway
+    container_name: battery-simulator
+    profiles: ["demo"]
+    restart: unless-stopped
+    command: ["python", "simulator.py", "--device", "${SIM_DEVICE:-bench-01}", "--profile", "${SIM_PROFILE:-bench_6v}"]
+    environment:
+      MQTT_HOST: mosquitto
+      MQTT_PORT: "1883"
+      MQTT_USERNAME: ${MQTT_USERNAME:-}
+      MQTT_PASSWORD: ${MQTT_PASSWORD:-}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    depends_on:
+      - mosquitto
+    networks: [battery-net]
+
+networks:
+  battery-net:
+    driver: bridge
+
+volumes:
+  mosquitto-data:
+  mosquitto-log:
+  influxdb-data:
+  influxdb-config:
+  grafana-data:
