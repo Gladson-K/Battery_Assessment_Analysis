@@ -45,3 +45,10 @@ Thumbs.db
 *.pem
 *.key
 secrets/
+
+# Generated Grafana datasource (contains the InfluxDB token)
+nas/grafana/provisioning/datasources/influxdb.yml
+# Host test binaries
+/firmware/tests/test_core
+/firmware/tests/test_model
+/firmware/tests/test_cpp
