@@ -1,0 +1,51 @@
+data:
+  path: battery_dataset_real_world_mixed.csv
+  label: Label
+  classes: [Safe, Unsafe]
+  features:
+    - T1
+    - T2
+    - T3
+    - T4
+    - T5
+    - T6
+    - T7
+    - T8
+    - Voltage
+    - Current
+    - Rain_A
+    - Rain_D
+
+search:
+  trials: 24
+  folds: 5
+  random_state: 42
+  max_parameters: 20000
+  selection_weights:
+    roc_auc: 0.40
+    recall: 0.25
+    f1: 0.20
+    brier: 0.15
+  space:
+    hidden_layers:
+      - [32]
+      - [64]
+      - [32, 16]
+      - [64, 32]
+      - [64, 32, 16]
+      - [128, 64]
+    activation: [relu, gelu, tanh]
+    dropout: [0.0, 0.1, 0.2, 0.3]
+    learning_rate: [0.001, 0.0005]
+    weight_decay: [0.0001, 0.001]
+    batch_size: [32, 64]
+    epochs: [80]
+
+train:
+  final_epochs: 120
+  decision_threshold: 0.5
+
+output:
+  checkpoint: model/generated/nas_best_model.pt
+  best_config: model/generated/nas_best_config.json
+  search_results: model/generated/nas_search_results.json

@@ -16,7 +16,8 @@ diagrams, and a NAS-based telemetry platform.
   profiles, command handler, CRC-protected telemetry, IWDG and config store.
 - **ML:** constrained random forest exported to C (`rf-v2-2026`, checksum
   `0x1EF66943`), host parity test with 80 vectors. ML is enabled only on the
-  bench 6 V profile.
+  bench 6 V profile. An offline PyTorch neural architecture search selects and
+  tracks a reproducible MLP checkpoint (`nas-a54bf9f1`) via Git LFS.
 - **Hardware:** BOM, pin map, wiring guides for C1-C5, system/schematic/
   placement/PCB-layout/enclosure diagrams, and a KiCad capture guide.
 - **NAS:** Mosquitto, InfluxDB, Grafana, UART-to-MQTT gateway, store-and-forward
@@ -54,14 +55,24 @@ pio run -d firmware -e blackpill_f411ce_cold_chain
 In this workspace the PlatformIO binary is
 `/tmp/opencode/pio-venv/bin/pio`.
 
+### ML NAS
+
+```bash
+python3 model/nas/search.py --config model/nas/config.yaml
+```
+
+The search writes `model/generated/nas_best_model.pt` (Git LFS),
+`nas_best_config.json` and `nas_search_results.json`. See
+`docs/neural_architecture_search.md`.
+
 ### Verify everything
 
 ```bash
 ./scripts/verify.sh
 ```
 
-The script runs host tests, all five firmware builds, NAS protocol tests, Python
-syntax checks and a Docker Compose configuration check.
+The script runs host tests, all five firmware builds, NAS protocol tests, ML NAS
+architecture tests, Python syntax checks and a Docker Compose configuration check.
 
 ### NAS demo
 
@@ -94,7 +105,7 @@ Hardware pin map and wiring: `hardware/wiring/pin_map.csv` and
 ```text
 firmware/   STM32 firmware, portable core, ML, host tests, PlatformIO envs
 hardware/   BOM, pin map, wiring, diagrams, KiCad capture guide
-model/      training/export pipeline, profile config, generated metrics
+model/      training/export pipeline, ML NAS, profile config, generated metrics
 nas/        MQTT/InfluxDB/Grafana/API stack and simulator
 docs/       engineering, safety, test, deployment and user documentation
 scripts/    verification and helper scripts
@@ -138,6 +149,7 @@ Key documents:
 - `docs/assessment_logic.md`
 - `docs/edge_cases.md`
 - `docs/model_card.md`
+- `docs/neural_architecture_search.md`
 - `docs/pcb_design.md`
 - `docs/thermal_use_cases.md`
 - `docs/safety_case.md`

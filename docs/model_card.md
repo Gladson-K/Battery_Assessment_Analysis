@@ -15,6 +15,16 @@
 | Minimum samples per leaf | 2 |
 | Total nodes | 642 |
 
+## Neural architecture search
+
+`model/nas/search.py` runs a constrained PyTorch MLP architecture search over
+the same training data. The current best MLP is `nas-a54bf9f1` (`64-32-16`,
+ReLU, dropout 0.3, 3,457 parameters) with out-of-fold ROC-AUC 0.9644, recall
+0.8696, F1 0.8777 and Brier 0.0799. The checkpoint is
+`model/generated/nas_best_model.pt`, tracked with Git LFS. The random forest
+still has higher ROC-AUC and lower Brier score and remains the firmware model.
+See [neural_architecture_search.md](neural_architecture_search.md).
+
 ## Intended use
 
 The model is an advisory classifier for the **bench 6 V profile only**. It

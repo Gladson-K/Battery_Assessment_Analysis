@@ -1,0 +1,78 @@
+{
+  "architecture": {
+    "activation": "relu",
+    "dropout": 0.3,
+    "hidden_layers": [
+      64,
+      32,
+      16
+    ]
+  },
+  "checkpoint": "model/generated/nas_best_model.pt",
+  "classes": [
+    "Safe",
+    "Unsafe"
+  ],
+  "dataset": {
+    "path": "battery_dataset_real_world_mixed.csv",
+    "rows": 320,
+    "sha256": "79740a909e7ab7d73330929bb6eed180e9d6fed929121ad2aacc61833c469f44"
+  },
+  "decision_threshold": 0.5,
+  "features": [
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6",
+    "T7",
+    "T8",
+    "Voltage",
+    "Current",
+    "Rain_A",
+    "Rain_D"
+  ],
+  "folds": 5,
+  "metrics_oof": {
+    "accuracy": 0.878125,
+    "brier": 0.07994750806310127,
+    "confusion_matrix": [
+      [
+        141,
+        18
+      ],
+      [
+        21,
+        140
+      ]
+    ],
+    "f1": 0.877742946708464,
+    "fold_roc_auc_mean": 0.9630777278836755,
+    "fold_roc_auc_std": 0.011970270834804002,
+    "precision": 0.8860759493670886,
+    "recall": 0.8695652173913043,
+    "roc_auc": 0.9644126723700145,
+    "threshold": 0.5
+  },
+  "model_name": "battery-nas-mlp",
+  "model_version": "nas-a54bf9f1",
+  "parameter_count": 3457,
+  "random_state": 42,
+  "search_config": "model/nas/config.yaml",
+  "search_trials": 24,
+  "selection_score": 0.9167128364280596,
+  "selection_weights": {
+    "brier": 0.15,
+    "f1": 0.2,
+    "recall": 0.25,
+    "roc_auc": 0.4
+  },
+  "training": {
+    "batch_size": 64,
+    "epochs": 120,
+    "learning_rate": 0.0005,
+    "seed": 42,
+    "weight_decay": 0.001
+  }
+}

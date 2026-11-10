@@ -33,6 +33,7 @@ heartbeats is itself a warning condition.
 | `firmware/app/` | Sensor manager and command handler |
 | `firmware/src/` | Board bring-up, main loop, interrupt handlers, config store |
 | `firmware/tests/` | Host tests and generated model parity vectors |
+| `model/nas/` | Offline PyTorch neural architecture search and selected MLP checkpoint |
 | `hardware/` | BOM, pin map, wiring, diagrams and KiCad capture guide |
 | `nas/gateway/` | UART-to-MQTT gateway, InfluxDB ingester, REST API, simulator |
 | `nas/grafana/` | Provisioned datasource template and dashboard |

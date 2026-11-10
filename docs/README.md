@@ -11,6 +11,7 @@ STM32F4 battery/thermal safety platform. The hardware package is in
 | [assessment_logic.md](assessment_logic.md) | Risk scoring, ML gate, debounce, state transitions, latching and reset |
 | [edge_cases.md](edge_cases.md) | Sensor faults, comms loss, watchdog, reset, rain conflict and known limits |
 | [model_card.md](model_card.md) | Model provenance, metrics, intended use, limitations and parity evidence |
+| [neural_architecture_search.md](neural_architecture_search.md) | Offline PyTorch NAS, selected MLP config, metrics and LFS checkpoint |
 | [pcb_design.md](pcb_design.md) | Reference PCB rules, placement, isolation, assembly and fabrication gaps |
 | [thermal_use_cases.md](thermal_use_cases.md) | C1-C5 use cases, sensor placement and profile thresholds |
 | [productization.md](productization.md) | DFM, manufacturing test, calibration, release, certification and roadmap |

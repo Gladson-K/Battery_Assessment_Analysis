@@ -35,8 +35,11 @@ done
 echo "== NAS protocol tests =="
 python3 -m unittest discover -s nas/tests -v
 
+echo "== ML NAS tests =="
+python3 -m unittest discover -s model/nas -p 'test_*.py' -v
+
 echo "== Python syntax =="
-python3 -m py_compile nas/gateway/*.py nas/tests/*.py
+python3 -m py_compile nas/gateway/*.py nas/tests/*.py model/nas/*.py model/train_v2.py
 
 echo "== Compose configuration =="
 if command -v docker-compose >/dev/null 2>&1; then
