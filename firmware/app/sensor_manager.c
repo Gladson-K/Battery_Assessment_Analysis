@@ -49,9 +49,9 @@ bool sm_config_for_profile(sm_config_t *config, bat_profile_t profile)
         }
         set_temp(&config->temp[8], TEMP_SOURCE_TMP117, 0, BOARD_I2C_ADDR_TMP117);
         set_temp(&config->temp[9], TEMP_SOURCE_TMP117, 0, BOARD_I2C_ADDR_TMP117 + 1u);
-        config->use_ina226 = 1;
-        config->ina226_shunt_ohm = 0.0005f;
-        config->ina226_max_current_a = 200.0f;
+        config->use_ina228 = 1;
+        config->ina228_shunt_ohm = 0.0001f;
+        config->ina228_max_current_a = 300.0f;
         config->use_fan = 1;
         return true;
     case BAT_PROFILE_LFP_24V:
@@ -115,6 +115,10 @@ bool sm_init(sm_t *manager, const sm_config_t *config, uint32_t now_ms)
     manager->ina226.address = BOARD_I2C_ADDR_INA226;
     manager->ina226.shunt_resistance = config->ina226_shunt_ohm;
     manager->ina226.max_current = config->ina226_max_current_a;
+    manager->ina228.i2c = &hi2c1;
+    manager->ina228.address = BOARD_I2C_ADDR_INA228;
+    manager->ina228.shunt_resistance = config->ina228_shunt_ohm;
+    manager->ina228.max_current = config->ina228_max_current_a;
     manager->lcd.i2c = &hi2c1;
     manager->lcd.address = BOARD_I2C_ADDR_LCD;
     manager->lcd.backlight = 1;
@@ -134,6 +138,7 @@ bool sm_init(sm_t *manager, const sm_config_t *config, uint32_t now_ms)
         }
     }
     manager->ina226_ok = config->use_ina226 ? (ina226_init(&manager->ina226) ? 1u : 0u) : 1u;
+    manager->ina228_ok = config->use_ina228 ? (ina228_init(&manager->ina228) ? 1u : 0u) : 1u;
     manager->sht31_ok = config->use_sht31 ? (sht31_init(&manager->sht31) ? 1u : 0u) : 1u;
     manager->lcd_ok = config->use_lcd ? (lcd_pcf8574_init(&manager->lcd) ? 1u : 0u) : 0u;
 
@@ -149,6 +154,9 @@ bool sm_self_test(const sm_t *manager)
         return false;
     }
     if (manager->config.use_ina226 && !manager->ina226_ok) {
+        return false;
+    }
+    if (manager->config.use_ina228 && !manager->ina228_ok) {
         return false;
     }
     if (manager->config.use_sht31 && !manager->sht31_ok) {
@@ -240,7 +248,13 @@ void sm_read(sm_t *manager, bat_raw_sample_t *raw, bat_features_t *features, uin
         }
     }
 
-    if (manager->config.use_ina226 && manager->ina226_ok) {
+    if (manager->config.use_ina228 && manager->ina228_ok) {
+        ina228_reading_t reading = ina228_read(&manager->ina228);
+        if (reading.valid) {
+            raw->voltage_v = reading.bus_voltage.value;
+            raw->current_a = reading.current.value;
+        }
+    } else if (manager->config.use_ina226 && manager->ina226_ok) {
         ina226_reading_t reading = ina226_read(&manager->ina226);
         if (reading.valid) {
             raw->voltage_v = reading.bus_voltage.value;

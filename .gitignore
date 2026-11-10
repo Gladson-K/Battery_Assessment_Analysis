@@ -52,3 +52,4 @@ nas/grafana/provisioning/datasources/influxdb.yml
 /firmware/tests/test_core
 /firmware/tests/test_model
 /firmware/tests/test_cpp
+/firmware/tests/test_ina228

@@ -5,6 +5,7 @@
 #include "battery_types.h"
 #include "feature_builder.h"
 #include "ina226.h"
+#include "ina228.h"
 #include "lcd_pcf8574.h"
 #include "lm35.h"
 #include "max31865.h"
@@ -42,12 +43,15 @@ typedef struct {
     uint8_t use_voltage_divider;
     uint8_t use_acs712;
     uint8_t use_ina226;
+    uint8_t use_ina228;
     uint8_t use_rain;
     uint8_t use_sht31;
     uint8_t use_lcd;
     uint8_t use_fan;
     float ina226_shunt_ohm;
     float ina226_max_current_a;
+    float ina228_shunt_ohm;
+    float ina228_max_current_a;
 } sm_config_t;
 
 typedef struct {
@@ -59,10 +63,12 @@ typedef struct {
     max31865_t max31865;
     sht31_t sht31;
     ina226_t ina226;
+    ina228_t ina228;
     lcd_pcf8574_t lcd;
     fb_t builder;
     uint8_t lcd_ok;
     uint8_t ina226_ok;
+    uint8_t ina228_ok;
     uint8_t sht31_ok;
     uint8_t max31865_ok;
     uint8_t acs712_calibrated;
