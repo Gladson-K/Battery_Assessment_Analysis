@@ -40,7 +40,7 @@ reset opens the contactor. A hardware pull-down on the driver is mandatory.
 | MCU stall | Firmware fault, EMI, brownout | Loss of protection | IWDG, relay pull-down, boot fault | External hardware protection still required |
 | Comms loss | Gateway/NAS outage | Loss of remote visibility | Local control continues, comms warning, relay closure blocked | Local operator must respond |
 | Relay weld | Inrush, contact wear | Load cannot be removed | Use rated contactor/relay, precharge, periodic test | Weld detection is not implemented |
-| C2 HV exposure | 48 V contact, isolation failure | Shock, arc flash | HV layout, isolation, service disconnect, PPE | C2 is not fabrication-ready until redesigned |
+| C2 HV exposure | 48 V contact, isolation failure | Shock, arc flash | INA228 85 V sensing, HV layout, isolation, service disconnect, PPE | HV assembly still requires qualified review |
 | Rain/condensation | Ingress, seal failure | Short, corrosion | Rain/humidity warning, IP enclosure, conformal coat | Ingress protection depends on assembly |
 | Cold-chain excursion | Door open, compressor fault | Product spoilage | Temperature thresholds, door/humidity inputs, buzzer | Independent refrigeration alarm recommended |
 
@@ -88,7 +88,8 @@ Required before field deployment:
 - No relay weld detection.
 - Config store is disabled in V1.
 - ML is advisory and bench-only.
-- C2 48 V sensing is not production-ready due to the INA226 36 V limit.
+- C2 48 V sensing uses an INA228, but the HV assembly is not production-ready
+  until isolation and creepage are reviewed.
 - No fabrication-ready KiCad/Gerber package.
 - No certified functional-safety evidence.
 

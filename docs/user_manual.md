@@ -106,8 +106,8 @@ fault or an active e-stop.
 
 - This is not a certified BMS. Use a battery BMS, fuse and independent hardware
   protection appropriate for the installation.
-- Do not connect a 48 V C2 pack until the HV sensing redesign and review are
-  complete.
+- Do not connect a 48 V C2 pack until the HV isolation, creepage and assembly
+  review are complete.
 - Do not work on a high-voltage pack without PPE, a current-limited supply and a
   second person present.
 - Do not rely on the ML result as the only protection layer.

@@ -14,8 +14,8 @@ safety case for the target market.
 - Build C1 first; it exercises ADC, mux, I2C, LCD, relay, buzzer and telemetry.
 - Bring up C3/C4 next; they reuse I2C/INA226 and deterministic rules.
 - Build C5 only after compressor inrush and cold-chamber testing.
-- Treat C2 as a separate HV project: replace the INA226 path, complete isolation
-  review and obtain a qualified HV sign-off.
+- Treat C2 as a separate HV project: the INA228 path is implemented, but the
+  isolation review, HV layout and qualified sign-off remain mandatory.
 
 ### 2. Design verification
 
@@ -113,7 +113,7 @@ house and a qualified assessor have reviewed the design and evidence.
 
 | Priority | Item |
 | --- | --- |
-| P0 | C2 HV sensing redesign and independent review |
+| P0 | C2 HV isolation, creepage and independent assembly review |
 | P0 | Fabrication-ready KiCad files and first-article build |
 | P0 | HIL, EMC, environmental and fault-injection evidence |
 | P1 | Config store with CRC/A-B slots and signed calibration |

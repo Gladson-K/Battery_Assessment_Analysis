@@ -26,7 +26,8 @@ Addresses:
 
 - TMP117: `0x48`, `0x49`, `0x4A`, `0x4B` (ADD0/ADD1 strapping)
 - SHT31: `0x44` (ADDR low)
-- INA226: `0x40` (A0/A1 low)
+- INA226: `0x40` (C3/C4, A0/A1 low)
+- INA228: `0x40` (C2, address pins low)
 - MLX90614: `0x5A`
 - PCF8574 LCD: `0x27` (A0-A2 low)
 

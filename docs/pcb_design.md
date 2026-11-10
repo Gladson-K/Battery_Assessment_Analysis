@@ -57,8 +57,8 @@ Thermal placement:
   relay/contactor switching node.
 - Route SPI2 to the MAX31865 array with a common ground and individual active-low
   chip selects from the 74HC138.
-- Keep the ACS712/INA226 analog path away from PWM, relay coils and the fan.
-- Use Kelvin connections to the INA226 shunt.
+- Keep the ACS712/INA226/INA228 analog path away from PWM, relay coils and the fan.
+- Use Kelvin connections to the INA226/INA228 shunt.
 - Put a 100 nF decoupler at every sensor supply pin and 10 uF at each board entry.
 - Add series resistors or TVS clamps on external sensor and rain lines.
 - Do not share the relay/contactor return current with the ADC ground.
@@ -95,14 +95,14 @@ e-stop, UART TX/RX and I2C SDA/SCL.
 9. Label HV terminals and add a service disconnect on C2.
 10. Include a serial number and hardware revision silkscreen.
 
-## C2 high-voltage caveat
+## C2 high-voltage sensing
 
-The C2 reference design currently lists an INA226. The INA226 VBUS and
-current-input common-mode limit is 36 V, so it cannot be connected directly to a
-48 V pack. Before fabrication, replace it with an INA228/INA229 (85 V) or an
-isolated current-sense amplifier, and measure pack voltage through a 1:11
-divider. V1 firmware supports INA226 only; C2 requires a firmware/driver update
-and a qualified HV review.
+The C2 reference design uses an INA228 rated to 85 V on VBUS and a 0.1 mOhm
+Kelvin shunt. At the 300 A firmware design range the shunt drops 30 mV, within
+the INA228 +/-163.84 mV input range, so the 48 V pack connects directly without
+a voltage divider. Keep the INA228 and shunt in the HV domain behind the
+isolation barrier, use a 100 Ohm series resistor and 100 nF at VBUS, and obtain
+a qualified HV review of creepage, clearance and isolation before fabrication.
 
 ## Fabrication checklist
 

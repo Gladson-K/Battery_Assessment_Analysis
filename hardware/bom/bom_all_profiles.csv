@@ -44,11 +44,11 @@ C2,U20,8,MAX31865,SSOP-20,3.3 V,PT100 front end
 C2,U21,8,PT100 3-wire probe,Probe,-50 to 250 C,Cell temperature
 C2,U22,1,74HC138,SOIC-16,3.3 V,MAX31865 CS decoder
 C2,U23,2,TMP117,DSBGA-6,3.3 V,Ambient and busbar
-C2,U24,1,INA226,MSOP-10,3.3 V,Current sense; HV redesign required (36 V limit)
+C2,U24,1,INA228,VSSOP-10,3.3 V,85 V bus/current monitor
 C2,U25,1,ISO1540,SOIC-8,3.3 V,Isolated I2C
 C2,U26,1,Isolated DC-DC 48 V to 5 V,Module,48 V 10 W,Logic supply
 C2,U27,1,TCAN330,SOIC-8,3.3 V,CAN transceiver V1.1
-C2,R20,1,0.5 mOhm shunt,2512,1% 5 W,200 A current shunt
+C2,R20,1,0.1 mOhm shunt,2512,1% 10 W,300 A current shunt
 C2,R21,8,430 ohm resistor,0805,0.1%,MAX31865 RREF
 C2,R22,1,100 ohm precharge resistor,Chassis,50 W,Precharge limit
 C2,K20,1,EV contactor,Chassis,48 V 200 A,Main disconnect

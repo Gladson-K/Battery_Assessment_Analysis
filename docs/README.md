@@ -43,5 +43,5 @@ Not yet validated:
 - Hardware-in-the-loop testing on assembled boards.
 - EMC, environmental, vibration, salt-fog and fault-injection testing.
 - Fabrication-ready KiCad schematics, PCB layouts and Gerbers.
-- C2 48 V current/voltage sensing (INA226 is limited to 36 V; see the C2
-  engineering note).
+- C2 48 V HV assembly, isolation and creepage validation (the INA228 sensing
+  path itself is implemented).

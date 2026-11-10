@@ -16,17 +16,17 @@
 ## C2: EV Pack 48 V
 
 **Use case:** 48 V LFP traction pack with eight PT100 cell probes, two ambient
-probes, a 200 A shunt and a main contactor.
+probes, a 300 A design shunt and a main contactor.
 
 - Sensors: eight MAX31865 3-wire PT100 channels via a 74HC138 decoder, two
-  TMP117, INA226 current sense, e-stop/HVIL input.
+  TMP117, INA228 85 V current/voltage sense, e-stop/HVIL input.
 - Focus: cell temperature, thermal runaway precursors, over-current and
   contactor safe state.
 - ML: disabled.
 - Thresholds: 55/65/75 C; 42/38 V low; 55/58 V high; 50/100/150 A.
-- **Status:** engineering reference only. INA226 is limited to 36 V, so the
-  48 V bus cannot connect directly. Use INA228/INA229 or an isolated current
-  sensor plus a pack-voltage divider, and obtain an HV review before fabrication.
+- **Status:** the INA228 sensing path supports the 48 V bus directly, but the
+  HV assembly remains an engineering reference until isolation, creepage and
+  qualified HV review are complete.
 - Do not perform HV testing without a current-limited supply, appropriate PPE
   and a second person present.
 

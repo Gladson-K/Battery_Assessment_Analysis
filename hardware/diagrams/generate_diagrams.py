@@ -192,7 +192,7 @@ PROFILES = {
     },
     "c2_ev_pack_48v": {
         "title": "C2 EV Pack 48 V",
-        "subtitle": "HV traction pack | 8x PT100/MAX31865 | 200 A shunt | contactor",
+        "subtitle": "HV traction pack | 8x PT100/MAX31865 | 300 A design shunt | contactor",
         "power": [
             ("48 V pack", "F20 200 A"),
             ("Precharge", "R22 100 Ohm"),
@@ -204,7 +204,7 @@ PROFILES = {
             ("8x MAX31865", "RREF 430 Ohm"),
             ("74HC138", "CS decoder PB0-PB2"),
             ("2x TMP117", "0x48/0x49 ambient"),
-            ("INA226", "0.5 mOhm, 200 A"),
+            ("INA228", "0.1 mOhm, 300 A"),
         ],
         "outputs": [
             ("Contactor K20", "48 V 200 A"),
@@ -330,7 +330,7 @@ def system_architecture():
 
     box(ax, 2.45, 7.85, 3.5, 1.05, "Battery + environment", "cells, terminals, ambient, rain", "sensor")
     box(ax, 2.45, 6.35, 3.5, 1.05, "Sensor front ends", "LM35 / NTC / PT100 / TMP117 / MLX / SHT31", "sensor")
-    box(ax, 2.45, 4.85, 3.5, 1.05, "Power sensing", "voltage divider / ACS712 / INA226", "sensor")
+    box(ax, 2.45, 4.85, 3.5, 1.05, "Power sensing", "voltage divider / ACS712 / INA226 / INA228", "sensor")
     box(ax, 2.45, 3.35, 3.5, 1.05, "Safety inputs", "e-stop / HVIL / door / tamper", "safety")
 
     box(ax, 8.0, 6.0, 4.0, 4.9, "STM32F411CEU6", "sensor manager\nfeature builder\nassessment state machine\nsafety controller\nRF model (bench only)", "mcu", title_fs=12.5, body_fs=9.2)
@@ -474,7 +474,7 @@ PLACEMENTS = {
             (0.24, 0.30, "TMP117 cell 4"),
             (0.36, 0.70, "MLX90614 top"),
             (0.36, 0.30, "SHT31 inlet"),
-            (0.48, 0.42, "INA226 shunt"),
+            (0.48, 0.42, "INA228 shunt"),
         ],
         "airflow": [(0.44, 0.84, 0.80, 0.84)],
         "glands": [(0.04, 0.90, "24 V IN"), (0.94, 0.90, "UPS OUT"), (0.94, 0.20, "RS485")],
@@ -659,7 +659,7 @@ def pcb_layout(name: str, spec: dict):
     box(ax, 4.0, 7.85, 3.2, 0.95, "Power + protection", "fuse, TVS, DC-DC, LDO", "power", title_fs=9.3, body_fs=7.8)
     box(ax, 7.7, 5.55, 3.8, 2.5, "STM32F411CEU6", "MCU, SWD, reset\nUART1 / UART2\nI2C1 / SPI2", "mcu", title_fs=10.5, body_fs=8.2)
     box(ax, 4.2, 3.95, 4.0, 2.3, "Analog front end", "dividers, filters,\nMUX / NTC / ACS712", "sensor", title_fs=9.8, body_fs=8.0)
-    box(ax, 11.1, 7.65, 3.0, 1.0, "I2C sensors", "TMP117 / SHT31 /\nINA226 / MLX", "sensor", title_fs=9.2, body_fs=7.6)
+    box(ax, 11.1, 7.65, 3.0, 1.0, "I2C sensors", "TMP117 / SHT31 /\nINA226 / INA228 / MLX", "sensor", title_fs=9.2, body_fs=7.6)
     box(ax, 11.1, 5.55, 3.0, 1.55, "Relay + alerts", "relay driver,\nbuzzer, fan, LED", "output", title_fs=9.2, body_fs=7.6)
     box(ax, 2.85, 1.95, 1.9, 0.7, "J1/J2", "battery/load", "power", title_fs=8.4, body_fs=7.2)
     box(ax, 5.9, 1.95, 1.9, 0.7, "J3/J4", "I2C/SPI", "comm", title_fs=8.4, body_fs=7.2)

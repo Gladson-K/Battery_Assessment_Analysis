@@ -11,7 +11,7 @@ captured, ERC/DRC-checked and reviewed before fabrication.
 battery_safety_controller.kicad_pro
 ├── common_controller.kicad_sch      # MCU, power, safety, connectors
 ├── c1_bench_6v.kicad_sch            # LM35 mux, ACS712, rain, LCD
-├── c2_ev_pack_48v.kicad_sch         # PT100/MAX31865, TMP117, INA226, HV
+├── c2_ev_pack_48v.kicad_sch         # PT100/MAX31865, TMP117, INA228, HV
 ├── c3_server_ups_24v.kicad_sch      # TMP117, MLX, SHT31, INA226, relay
 ├── c4_solar_cabinet_12v.kicad_sch   # NTC, SHT31, INA226, rain, relay
 └── c5_cold_chain_12v.kicad_sch      # TMP117, SHT31, ACS712, relay
@@ -41,7 +41,8 @@ is fitted per assembly. The common controller sheet is always fitted.
 | U1 | `Module:BlackPill_STM32F411CE` or 2x20 2.54 mm sockets | Verify Black Pill pinout |
 | U2 | `Package_TO_SOT_SMD:SOT-223-3_TabPin2` | AMS1117-3.3 |
 | U10-U17 | `Package_TO_SOT_THT:TO-92_Inline` | LM35, 2.54 mm pitch |
-| U20-U27 | `Package_SO:SSOP-20_3.9x8.7mm_P0.635mm` | MAX31865 |
+| U20 (x8) | `Package_SO:SSOP-20_3.9x8.7mm_P0.635mm` | MAX31865 |
+| U24 | `Package_SO:VSSOP-10_3.0x3.0mm_P0.5mm` | INA228 (C2, 85 V) |
 | U30-U33 | `Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.8x1.6mm` | TMP117 / SHT31 |
 | U40 | `Package_TO_SOT_THT:TO-39-4` | MLX90614 |
 | U50 | `Package_SO:SOIC-8_3.9x4.9mm_P1.27mm` | ACS712 |
@@ -92,7 +93,7 @@ with a ruler and a high-voltage test after assembly.
 ## Assembly Variants
 
 - `C1`: fit LM35 mux, ACS712-05B, rain, LCD header.
-- `C2`: fit MAX31865 array, 74HC138, TMP117, INA226, ISO1540, HV connector,
+- `C2`: fit MAX31865 array, 74HC138, TMP117, INA228, ISO1540, HV connector,
   contactor driver, precharge pads.
 - `C3`: fit TMP117 x4, MLX90614, SHT31, INA226, relay, fan, LCD, RS485.
 - `C4`: fit NTC networks, SHT31, INA226, rain, relay, fan, LCD, MOV/TVS.

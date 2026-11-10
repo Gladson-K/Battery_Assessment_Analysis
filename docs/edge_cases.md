@@ -83,10 +83,10 @@ release should enable the store with versioned records, CRC and A/B slots.
 
 ## Known hardware limits
 
-- **C2 48 V:** INA226 is limited to 36 V on VBUS and current-input common mode.
-  The C2 reference design requires INA228/INA229 or an isolated current-sense
-  amplifier and a pack-voltage divider. V1 firmware supports INA226 only; C2 is
-  not fabrication-ready.
+- **C2 48 V:** the C2 profile uses an INA228 rated to 85 V with a 0.1 mOhm
+  Kelvin shunt and a 300 A current design range, so the 48 V bus can be measured
+  directly. The HV assembly still needs isolation, creepage/clearance and
+  qualified HV approval before fabrication.
 - **C5 12 V:** the profile is a 4S LFP/12 V pack with an ACS712-20A sensor. The
   current thresholds are 8/15/20 A and the voltage thresholds are 11.8/10.8 V
   low and 14.4/14.8 V high. Confirm the compressor inrush and relay rating before

@@ -44,7 +44,7 @@ heartbeats is itself a warning condition.
 1. **Board layer** (`firmware/src/board.c`, `firmware/include/board_config.h`)
    configures clocks, GPIO, ADC, I2C, SPI, UART, IWDG and board I/O.
 2. **Driver layer** (`firmware/drivers/`) reads LM35, NTC, TMP117, MLX90614,
-   SHT31, MAX31865, INA226, ACS712, rain, LCD and serial frames.
+   SHT31, MAX31865, INA226, INA228, ACS712, rain, LCD and serial frames.
 3. **Application layer** (`firmware/app/`) maps a profile to its sensors,
    performs self-test and zero calibration, and handles commands.
 4. **Core layer** (`firmware/core/`) is platform-independent C99: filtering,

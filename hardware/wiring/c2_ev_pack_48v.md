@@ -1,7 +1,7 @@
 # C2 EV Pack 48 V Circuit
 
 **Use case:** 48 V LFP traction pack with eight PT100 cell probes, two TMP117
-ambient/busbar probes, a 200 A shunt and a main contactor. This is a high-voltage
+ambient/busbar probes, a 300 A design shunt and a main contactor. This is a high-voltage
 safety-critical variant and must be reviewed by a qualified HV engineer.
 
 ## Block Diagram
@@ -11,7 +11,7 @@ safety-critical variant and must be reviewed by a qualified HV engineer.
                    |-> R22 100 Ohm precharge -> K20 bypass
                    |-> isolated 48 V/5 V -> 5 V -> 3.3 V
 8x PT100 -> 8x MAX31865 -> SPI2 (PB13/14/15) + 74HC138 decoder (PB0-PB2, PB12 enable)
-2x TMP117 (0x48/0x49) + INA226 (0x40) on isolated I2C
+2x TMP117 (0x48/0x49) + INA228 (0x40) on isolated I2C
 E-stop/HVIL -> PA8, fan -> PB11, buzzer -> PB10, contactor -> PB7
 ```
 
@@ -34,9 +34,9 @@ E-stop/HVIL -> PA8, fan -> PB11, buzzer -> PB10, contactor -> PB7
 | 74HC138 E2/E3 | GND | Permanently enabled |
 | MAX31865 SDI/SDO/CLK | PB15/PB14/PB13 | Shared SPI2 |
 | TMP117 SDA/SCL | Isolated I2C | 0x48 and 0x49 |
-| INA226 SDA/SCL | Isolated I2C | 0x40, A0/A1 low |
-| INA226 IN+ / IN- | Across R20 0.5 mOhm | Kelvin connections |
-| INA226 VBUS | Do not connect to 48 V | INA226 is limited to 36 V; use INA228/INA229 or an isolated current-sense amplifier plus a 1:11 pack-voltage divider |
+| INA228 SDA/SCL | Isolated I2C | 0x40, address pins low |
+| INA228 IN+ / IN- | Across R20 0.1 mOhm | Kelvin connections, 300 A design |
+| INA228 VBUS | 48 V bus after F20 | 85 V rated; 100 Ohm series and 100 nF |
 | Contactor coil | PB7 -> gate driver -> 12 V | Flyback diode |
 | HVIL loop | J22 -> PA8 | Normally closed |
 | E-stop | J5 -> PA8 | Normally closed |
@@ -64,17 +64,17 @@ E-stop/HVIL -> PA8, fan -> PB11, buzzer -> PB10, contactor -> PB7
 2. Use ice water (0 C) and boiling water (100 C) to verify PT100 readings.
 3. Short each PT100 input and confirm the firmware reports `SHORT`; open each
    input and confirm `OPEN`.
-4. Verify INA226 current with a calibrated DC load at 10 A, 50 A and 100 A.
+4. Verify INA228 current with a calibrated DC load at 10 A, 50 A and 100 A.
 5. Verify the contactor opens on e-stop, HVIL open, over-temperature and
    over-current.
 
 ## Safety Case
 
-- **HV measurement gap:** the INA226 bus-voltage and current-input common-mode
-  limit is 36 V. The 48 V pack must not connect directly to INA226. Replace it
-  with an INA228/INA229 (85 V) or an isolated current-sense amplifier and measure
-  pack voltage through the 1:11 divider. Firmware V1 supports INA226 only, so C2
-  is an engineering reference and is **not fabrication-ready**.
+- **HV measurement:** C2 uses an INA228 rated to 85 V, so the 48 V pack can be
+  measured directly on VBUS. The 0.1 mOhm shunt produces 30 mV at the 300 A
+  design limit, within the INA228 +/-163.84 mV range. The shunt and HV terminals
+  still require Kelvin sensing, creepage/clearance review and HV approval before
+  fabrication.
 - No ML inference is enabled on this profile; all decisions are deterministic
   threshold and rate-of-change rules.
 - The firmware de-energizes the contactor on any critical fault and on watchdog

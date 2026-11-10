@@ -6,8 +6,9 @@ diagrams, and a NAS-based telemetry platform.
 
 > **Safety notice:** this is a reference design, not a certified BMS or
 > functional-safety product. Use a battery BMS, fuse and independent hardware
-> protection. C2 48 V is not fabrication-ready until the HV sensing redesign is
-> complete; see `docs/safety_case.md` and `hardware/wiring/c2_ev_pack_48v.md`.
+> protection. C2 48 V sensing now uses an INA228, but the HV assembly still
+> requires isolation, creepage and HV approval before fabrication; see
+> `docs/safety_case.md` and `hardware/wiring/c2_ev_pack_48v.md`.
 
 ## What is included
 
@@ -80,7 +81,7 @@ stream at 1 Hz. See `nas/README.md` for real-hardware setup.
 | Env | Use case | Sensors | ML |
 | --- | --- | --- | --- |
 | `blackpill_f411ce_bench` | C1 bench 6 V | 8x LM35 via MUX, ACS712-05B, rain, LCD | Yes |
-| `blackpill_f411ce_ev_pack` | C2 EV 48 V | 8x PT100 MAX31865, 2x TMP117, INA226 | No |
+| `blackpill_f411ce_ev_pack` | C2 EV 48 V | 8x PT100 MAX31865, 2x TMP117, INA228 | No |
 | `blackpill_f411ce_server_ups` | C3 UPS 24 V | 4x TMP117, MLX90614, SHT31, INA226 | No |
 | `blackpill_f411ce_solar_cabinet` | C4 solar 12 V | 4x NTC, SHT31, INA226, rain | No |
 | `blackpill_f411ce_cold_chain` | C5 cold chain 12 V | 2x TMP117, SHT31, ACS712-20A | No |
@@ -125,7 +126,7 @@ Not yet validated:
 - Hardware-in-the-loop testing on assembled boards.
 - EMC, environmental, ingress, vibration and fault-injection testing.
 - Fabrication-ready KiCad schematics, PCB layouts and Gerbers.
-- C2 48 V current/voltage sensing (INA226 is limited to 36 V).
+- C2 48 V HV assembly, isolation and creepage validation.
 
 ## Documentation
 
