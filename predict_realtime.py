@@ -1,12 +1,12 @@
 import serial
 import time
-import joblib
 import pandas as pd
 from flask import Flask, jsonify
 import threading
 
-# Load model
-scaler, clf, le = joblib.load("battery_model_real_world.pkl")
+from artifact_guard import load_verified
+
+scaler, clf, le = load_verified("battery_model_real_world.pkl")
 
 # Open serial port
 ser = serial.Serial('COM4', 9600, timeout=1)
